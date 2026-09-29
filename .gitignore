@@ -1,0 +1,10 @@
+# local tooling
+.claude/
+
+# original resume (the site uses assets/Mohammed-Ebrahim-Resume.pdf)
+Mohammed Ebrahim Test Automation Lead Resume.pdf
+
+# OS junk
+Thumbs.db
+.DS_Store
+desktop.ini

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mohammed Ebrahim - Test Automation Lead</title>
+  <meta name="description" content="Mohammed Ebrahim, Test Automation Lead and SDET in Chennai. 8+ years of web, mobile, API and ETL test automation with Python, PyTest, Selenium and Appium.">
+  <meta name="theme-color" content="#05070D">
+  <meta property="og:title" content="Mohammed Ebrahim - Test Automation Lead">
+  <meta property="og:description" content="8+ years building test automation that teams trust. 4,000+ scenarios automated, 80% less manual effort.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mohammedebrahim0412.github.io/">
+  <meta property="og:image" content="https://mohammedebrahim0412.github.io/assets/img/portrait.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://mohammedebrahim0412.github.io/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070D'/%3E%3Cpath d='M18 33l9 9 19-20' fill='none' stroke='%2322C55E' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/workspace-typing.webp">
+  <link rel="stylesheet" href="css/style.css?v=2026-09-29-blast2">
+  <script>
+    document.documentElement.classList.add('js');
+    // theme: saved choice, else the device setting (set before paint to avoid a flash)
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('me-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'light' ? '#F4F5F8' : '#05070D');
+    })();
+    try { if (!sessionStorage.getItem('me-loader-seen')) document.documentElement.classList.add('is-loading'); }
+    catch (e) { document.documentElement.classList.add('is-loading'); }
+    // failsafe: if main.js never boots (blocked CDN, script error), show the plain page instead of a stuck loader
+    setTimeout(function () { if (!window.__meBooted) document.documentElement.classList.remove('js', 'is-loading'); }, 5000);
+  </script>
+</head>
+<body>
+
+  <!-- ============ LOADER ============ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="term">
+      <div class="term-bar"><span></span><span></span><span></span><em>zsh — portfolio</em></div>
+      <div class="term-body">
+        <div class="term-cmd"><span class="t-prompt">$</span> <span class="t-typed" data-text="pytest portfolio/ -v"></span><i class="t-caret"></i></div>
+        <div class="term-line">collected 6 items</div>
+        <div class="term-line">test_intro.py::test_hello <b>PASSED</b></div>
+        <div class="term-line">test_career.py::test_growth <b>PASSED</b></div>
+        <div class="term-line">test_framework.py::test_built_from_scratch <b>PASSED</b></div>
+        <div class="term-line">test_team.py::test_leadership <b>PASSED</b></div>
+        <div class="term-line">test_ai.py::test_ai_assisted <b>PASSED</b></div>
+        <div class="term-line">test_contact.py::test_lets_talk <b>PASSED</b></div>
+        <div class="term-line term-sum">======== 6 passed in 1.84s ========</div>
+      </div>
+    </div>
+    <p class="loader-skip">click to skip</p>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav-brand" aria-label="Mohammed Ebrahim, back to top">
+      <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+        <path d="M0 0 H88 V36 H36 V220 H88 V256 H0 Z M256 0 H168 V36 H220 V220 H168 V256 H256 Z" fill="currentColor"/>
+        <path d="M74 132 L112 170 L184 94" stroke="currentColor" stroke-width="30" stroke-linecap="square" fill="none"/>
+      </svg>
+      <span class="nav-name">Mohammed <b>Ebrahim</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#framework">Work</a>
+      <a href="#journey">Journey</a>
+      <a href="#skills">Automation</a>
+      <a href="#leadership">AI</a>
+      <a href="#about">About</a>
+    </nav>
+    <button class="glass-icon theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme">
+      <svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      <svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+    </button>
+    <a class="glass-btn btn-solid nav-talk" href="#contact"><span>Let's Talk</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    <button class="glass-icon nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/></svg>
+    </button>
+  </header>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label="Menu" inert>
+    <div class="mmenu-head">
+      <a href="#hero" class="nav-logo" aria-label="Mohammed Ebrahim, back to top">
+        <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+          <path d="M0 0 H88 V36 H36 V220 H88 V256 H0 Z M256 0 H168 V36 H220 V220 H168 V256 H256 Z" fill="currentColor"/>
+          <path d="M74 132 L112 170 L184 94" stroke="currentColor" stroke-width="30" stroke-linecap="square" fill="none"/>
+        </svg>
+      </a>
+      <button class="glass-icon" id="mmenuClose" type="button" aria-label="Close menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <nav class="mmenu-links" aria-label="Mobile">
+      <a href="#framework" style="--i:0">Work</a>
+      <a href="#journey" style="--i:1">Journey</a>
+      <a href="#skills" style="--i:2">Automation</a>
+      <a href="#leadership" style="--i:3">AI</a>
+      <a href="#about" style="--i:4">About</a>
+      <a href="#contact" style="--i:5">Let's Talk</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- ============ HERO (bleed) ============ -->
+    <section class="landing" id="hero">
+      <div class="hero-photo" aria-hidden="true">
+        <!-- To use a video loop instead, swap the <img> for:
+             <video src="assets/media/hero.mp4" poster="assets/img/workspace-typing.webp" autoplay muted loop playsinline></video> -->
+        <img src="assets/img/workspace-typing.webp" alt="" width="1254" height="1254" fetchpriority="high">
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-aura" aria-hidden="true"></div>
+
+      <div class="landing-in">
+        <div class="hero-copy">
+          <p class="hero-eyebrow hi" style="--h:0">QA Automation Lead</p>
+          <h1 class="landing-h1">
+            <span class="ln" style="--l:0">I <span class="glitch">break<span class="g1" aria-hidden="true">break</span><span class="g2" aria-hidden="true">break</span></span> software</span>
+            <span class="ln ln-serif" style="--l:1">on purpose,</span>
+            <span class="ln ln-soft" style="--l:2">before your users do.</span>
+          </h1>
+          <p class="hero-sub hi" style="--h:3">I build reliable test automation for web, mobile, API, data and OTT platforms — so teams can ship with confidence.</p>
+          <div class="hero-ctas hi" style="--h:4">
+            <a class="glass-btn btn-solid magnetic" href="#framework">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+              <span>View My Work</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a class="glass-btn magnetic" href="#contact">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+              <span>Let's Talk</span>
+            </a>
+          </div>
+          <ul class="hero-stats" aria-label="Highlights">
+            <li class="stat-card glass hi" style="--h:5">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              <b>8+</b><span>Years in QA</span>
+            </li>
+            <li class="stat-card glass hi" style="--h:6">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <b>4,000+</b><span>Automated scenarios</span>
+            </li>
+            <li class="stat-card glass hi" style="--h:7">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M8 17v-3"/><path d="M13 17V9"/><path d="M18 17V5"/></svg>
+              <b>80–90%</b><span>Automation coverage</span>
+            </li>
+            <li class="stat-card glass hi" style="--h:8">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <b>15</b><span>Engineers led</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- floating cards over the photo (desktop); stacked below the copy on smaller screens -->
+      <div class="hero-float">
+        <div class="float f-run" data-depth="18" aria-hidden="true">
+          <div class="run-card float-card">
+            <div class="run-row"><i></i>Test run<em>PASSED</em></div>
+            <div class="run-row"><i></i>Scenarios<em>4,000+</em></div>
+            <div class="run-row"><i></i>Manual effort<em>−80%</em></div>
+            <div class="run-row"><i></i>Pipeline<em>GREEN</em></div>
+          </div>
+        </div>
+        <div class="float f-domains" data-depth="10">
+          <ul class="domain-card glass float-card" aria-label="What I test">
+            <li style="--i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Web Apps</li>
+            <li style="--i:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>Mobile Apps</li>
+            <li style="--i:2"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>APIs &amp; Services</li>
+            <li style="--i:3"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>Data &amp; ETL</li>
+            <li style="--i:4"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>OTT Platforms</li>
+            <li style="--i:5"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-3"/><path d="M11 16V9"/><path d="M15 16v-5"/><path d="M19 16V6"/></svg>Performance</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="wrap about-grid">
+        <div class="about-copy">
+          <h2 class="h2" data-split>I make releases <em>boring.</em> In the best way.</h2>
+          <p class="statement" data-scrub>I'm a Test Automation Lead with 8+ years across web and mobile automation, ETL and data validation, API testing and QA leadership.</p>
+          <p class="about-p" data-reveal>I started as a Manual Test Engineer, moved into ETL test automation, and now lead a 15-member QA team while staying hands-on in the code. I've built automation frameworks from scratch in Python, PyTest, Selenium and Appium. That work cut manual testing effort by 80% and keeps releases on schedule with zero major defects reaching production.</p>
+          <div class="about-tags" data-reveal>
+            <span class="glass">Web &amp; Mobile</span><span class="glass">ETL / Data</span><span class="glass">API</span><span class="glass">QA Leadership</span><span class="glass">AI-assisted testing</span>
+          </div>
+        </div>
+        <figure class="about-photo" data-reveal>
+          <div class="about-photo-in"><img src="assets/img/portrait.webp" alt="Portrait of Mohammed Ebrahim" loading="lazy" width="1254" height="1254"></div>
+          <figcaption class="glass"><span class="dot-live"></span>Currently automating an OTT web app</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ JOURNEY ============ -->
+    <section class="section journey" id="journey">
+      <div class="journey-pin">
+        <div class="wrap journey-head">
+          <h2 class="h2" data-split>Every stage, <em class="em-green">green.</em></h2>
+        </div>
+        <div class="journey-rail" aria-hidden="true"><div class="journey-fill"></div></div>
+        <ol class="journey-track">
+          <li class="stage spot" data-status="PASSED">
+            <span class="stage-node"></span>
+            <p class="stage-date">2018</p>
+            <h3>B.Tech, Information Technology</h3>
+            <p class="stage-org">Anna University</p>
+            <p>The foundation: software engineering fundamentals and my first taste of breaking things on purpose.</p>
+            <span class="stage-status">QUEUED</span>
+          </li>
+          <li class="stage spot" data-status="PASSED">
+            <span class="stage-node"></span>
+            <p class="stage-date">Jun 2018 – Dec 2018</p>
+            <h3>Manual Test Engineer</h3>
+            <p>Functional, regression, smoke, integration and end-to-end testing across web and mobile. Requirement analysis, test design, defect reporting.</p>
+            <span class="stage-status">QUEUED</span>
+          </li>
+          <li class="stage spot" data-status="PASSED">
+            <span class="stage-node"></span>
+            <p class="stage-date">Jan 2019 – Mar 2023</p>
+            <h3>ETL Test Automation Engineer</h3>
+            <p>Automated ETL suites validating accuracy, integrity and migrations across AWS S3, Snowflake and dbt. SQL source-to-target checks, performance testing and Postman API scenarios.</p>
+            <span class="stage-status">QUEUED</span>
+          </li>
+          <li class="stage spot" data-status="RUNNING">
+            <span class="stage-node"></span>
+            <p class="stage-date">Jan 2022 – Present</p>
+            <h3>Test Automation Lead</h3>
+            <p>Leading and mentoring a 15-member QA team. I own the framework standards, pick automation candidates, run release readiness and teach the team new tools.</p>
+            <span class="stage-status">QUEUED</span>
+          </li>
+          <li class="stage spot" data-status="RUNNING">
+            <span class="stage-node"></span>
+            <p class="stage-date">Mar 2023 – Present</p>
+            <h3>Hands-on Web &amp; Mobile Automation</h3>
+            <p class="stage-org">FinTech · OTT</p>
+            <p>Built a Python/PyTest + Selenium + Appium framework from scratch for a FinTech app. 4,000+ scenarios automated. Now hands-on with an OTT web platform.</p>
+            <span class="stage-status">QUEUED</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ FRAMEWORK ============ -->
+    <section class="section framework" id="framework">
+      <div class="wrap">
+        <h2 class="h2" data-split>Built from scratch. Now the team <em>standard.</em></h2>
+        <p class="lead narrow" data-reveal>A Python / PyTest framework for web and mobile, designed to stay maintainable as coverage grew to thousands of scenarios.</p>
+
+        <div class="fw-grid">
+          <ol class="fw-layers" id="fwLayers">
+            <li class="spot"><span class="fw-k">CI</span><div><b>Jenkins + cron</b><p>Scheduled daily regression runs</p></div></li>
+            <li class="spot"><span class="fw-k">RPT</span><div><b>Allure reporting</b><p>Screenshots, videos &amp; logs on every failure</p></div></li>
+            <li class="spot"><span class="fw-k">RUN</span><div><b>Parallel &amp; tag-based runs</b><p>Retry handling + explicit waits against flakiness</p></div></li>
+            <li class="spot"><span class="fw-k">POM</span><div><b>Page Object Model</b><p>Reusable web &amp; mobile action components</p></div></li>
+            <li class="spot"><span class="fw-k">DRV</span><div><b>Selenium · Appium</b><p>One framework, web and mobile</p></div></li>
+            <li class="spot"><span class="fw-k">CFG</span><div><b>YAML config · Excel data</b><p>Test data and environments kept out of code</p></div></li>
+          </ol>
+
+          <div class="code" id="codeWin" data-reveal>
+            <div class="term-bar"><span></span><span></span><span></span><em>tests/test_checkout.py</em></div>
+            <pre class="code-body"><code><span class="cl"><span class="c-dec">@pytest.mark.regression</span></span>
+<span class="cl"><span class="c-dec">@pytest.mark.flaky</span>(reruns=<span class="c-num">2</span>)</span>
+<span class="cl"><span class="c-kw">def</span> <span class="c-fn">test_checkout_flow</span>(driver, config, data):</span>
+<span class="cl">    login = <span class="c-cls">LoginPage</span>(driver)</span>
+<span class="cl">    login.open(config[<span class="c-str">"base_url"</span>])</span>
+<span class="cl">    login.sign_in(data[<span class="c-str">"user"</span>])</span>
+<span class="cl"> </span>
+<span class="cl">    cart = <span class="c-cls">CartPage</span>(driver)</span>
+<span class="cl">    cart.add_item(data[<span class="c-str">"sku"</span>])</span>
+<span class="cl">    <span class="c-kw">assert</span> cart.total() == data[<span class="c-str">"total"</span>]</span></code></pre>
+            <div class="code-run">
+              <p><span class="t-prompt">$</span> pytest -m regression -n auto --alluredir=reports</p>
+              <p class="code-ok">✓ regression suite green · report ready in Allure</p>
+            </div>
+            <p class="code-note">illustrative snippet</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section skills" id="skills">
+      <div class="wrap">
+        <h2 class="h2" data-split>The <em>stack</em> I test with.</h2>
+      </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-row">
+          <div class="marquee-in">
+            <span>Python</span><span class="px">PyTest</span><span>Selenium</span><span class="px">Appium</span><span>Postman</span><span class="px">Jenkins</span><span>Allure</span><span class="px">Claude Code</span>
+            <span>Python</span><span class="px">PyTest</span><span>Selenium</span><span class="px">Appium</span><span>Postman</span><span class="px">Jenkins</span><span>Allure</span><span class="px">Claude Code</span>
+          </div>
+        </div>
+        <div class="marquee-row reverse">
+          <div class="marquee-in">
+            <span class="px">SQL</span><span>MySQL</span><span class="px">Snowflake</span><span>dbt</span><span class="px">AWS S3</span><span>YAML</span><span class="px">Agile</span><span>RAG</span>
+            <span class="px">SQL</span><span>MySQL</span><span class="px">Snowflake</span><span>dbt</span><span class="px">AWS S3</span><span>YAML</span><span class="px">Agile</span><span>RAG</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap bento">
+        <article class="skill spot b-hero" data-reveal>
+          <h3>Automation</h3>
+          <p>Framework design from scratch: Page Object Model, reusable components, one codebase for web and mobile.</p>
+          <div class="skill-tags"><span>Python</span><span>PyTest</span><span>Selenium</span><span>Appium</span><span>POM</span></div>
+        </article>
+        <article class="skill spot" data-reveal style="--d:.05s"><h3>Execution &amp; Stability</h3><p>Parallel execution, tag-based selective runs, retry handling, explicit waits</p></article>
+        <article class="skill spot" data-reveal style="--d:.1s"><h3>API Testing</h3><p>Postman, REST API functional &amp; negative testing</p></article>
+        <article class="skill spot" data-reveal style="--d:.05s"><h3>Data &amp; ETL</h3><p>SQL, MySQL, Snowflake, dbt, AWS S3, source-to-target validation</p></article>
+        <article class="skill spot" data-reveal style="--d:.1s"><h3>CI/CD &amp; Reporting</h3><p>Jenkins, cron scheduling, Allure, screenshots / videos / logs</p></article>
+        <article class="skill spot" data-reveal><h3>Test Data &amp; Config</h3><p>Excel-based test data, YAML configuration</p></article>
+        <article class="skill spot b-wide b-ai" data-reveal style="--d:.05s"><h3>AI / GenAI</h3><p>Claude Code for AI-assisted automation development, prompt engineering, RAG</p></article>
+        <article class="skill spot" data-reveal style="--d:.1s"><h3>Leadership &amp; Process</h3><p>Mentoring, test strategy, Agile/Scrum, sprint planning, defect triage, release readiness</p></article>
+      </div>
+    </section>
+
+    <!-- ============ AI + LEADERSHIP ============ -->
+    <section class="section lead-ai" id="leadership">
+      <div class="wrap lead-grid">
+        <article class="ai-card spot" data-reveal>
+          <h2 class="h3">AI-assisted. <br><em>Human-owned.</em></h2>
+          <p>I brought Claude Code into the team's workflow to speed up turning validated manual test cases into automation suites. QA review, validation and engineering ownership stay in the loop.</p>
+          <ul class="certs">
+            <li><span>✓</span>Prompt Engineering Certification</li>
+            <li><span>✓</span>RAG (Retrieval-Augmented Generation) Certification</li>
+          </ul>
+        </article>
+
+        <article class="team-card spot" data-reveal style="--d:.1s">
+          <div class="team-photo"><img src="assets/img/workspace-dashboard.webp" alt="Mohammed Ebrahim at his desk with a test automation dashboard showing all suites passed" loading="lazy" width="1254" height="1254"></div>
+          <div class="team-copy">
+            <h2 class="h3">Leading a 15-member <em>QA team</em></h2>
+            <ul class="team-list">
+              <li>Technical guidance, task coordination &amp; quality oversight</li>
+              <li>Hands-on training on new tools, frameworks &amp; AI-assisted testing</li>
+              <li>Sprint planning, estimation, reviews, retros &amp; defect triage</li>
+              <li>Coverage decisions and release readiness</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="contact-aura" aria-hidden="true"></div>
+      <div class="wrap contact-in">
+        <h2 class="contact-title" data-split>Let's build better software <em>together.</em></h2>
+        <div class="contact-actions" data-reveal>
+          <a class="glass-btn glass-accent magnetic" href="mailto:mohammed.ebrahim0412@gmail.com"><span>mohammed.ebrahim0412@gmail.com</span></a>
+          <a class="glass-btn magnetic" href="https://www.linkedin.com/in/mohammed-ebrahim-n/" target="_blank" rel="noopener"><span>LinkedIn ↗</span></a>
+          <a class="glass-btn magnetic" href="assets/Mohammed-Ebrahim-Resume.pdf" download><span>Resume PDF ↓</span></a>
+        </div>
+      </div>
+      <footer class="footer">
+        <p class="footer-sum">======== <b>1 portfolio passed</b>, 0 failed in 8+ years ========</p>
+        <p class="footer-meta">© <span id="year">2026</span> Mohammed Ebrahim · Chennai, India</p>
+      </footer>
+    </section>
+  </main>
+
+  <!-- ============ BUG HUNT (easter egg) ============ -->
+  <div class="bug-layer" id="bugLayer" aria-hidden="true"></div>
+  <button type="button" class="bug-card glass" id="bugCount" aria-label="Bug hunt: release a bug to catch" hidden>
+    <span class="bug-card-ic"><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M14 16 7 12"/><path d="M13 21H6"/><path d="M14 26 7 30"/><path d="M26 16l7-4"/><path d="M27 21h7"/><path d="M26 26l7 4"/></g><circle cx="20" cy="11" r="4.5" fill="currentColor"/><ellipse cx="20" cy="22" rx="8.5" ry="10.5" fill="#EF4444"/><path d="M20 12v20.5" stroke="#111" stroke-width="1.4"/><circle cx="16.4" cy="18.6" r="1.7" fill="#111"/><circle cx="23.6" cy="18.6" r="1.7" fill="#111"/><circle cx="15.8" cy="25.4" r="1.9" fill="#111"/><circle cx="24.2" cy="25.4" r="1.9" fill="#111"/></svg></span>
+    <span class="bug-card-body" aria-live="polite"><b id="bugCountLabel">Bug detected</b><span id="bugCountText">Something slipped through. Think you can find it?</span></span>
+    <svg class="bug-card-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/main.js?v=2026-09-29-blast2"></script>
+</body>
+</html>
