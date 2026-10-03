@@ -47,7 +47,7 @@
   const syncThemeUI = () => {
     const t = root.getAttribute('data-theme');
     themeBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
-    if (themeMeta) themeMeta.setAttribute('content', t === 'light' ? '#F4F5F8' : '#05070D');
+    if (themeMeta) themeMeta.setAttribute('content', t === 'light' ? '#F7F7F5' : '#030304');
   };
   const applyTheme = t => {
     root.setAttribute('data-theme', t);
@@ -70,13 +70,6 @@
       );
     }).catch(() => {});
   });
-  // follow the device setting live, unless the visitor picked one
-  matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
-    let saved = null;
-    try { saved = localStorage.getItem('me-theme'); } catch (err) {}
-    if (!saved) { root.setAttribute('data-theme', e.matches ? 'light' : 'dark'); syncThemeUI(); }
-  });
-
   /* ---------------- mobile menu ---------------- */
   const isMenuOpen = () => menu.classList.contains('is-open');
   const openMenu = () => {
@@ -116,7 +109,8 @@
   }
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const id = a.getAttribute('href');
-    const el = id.length > 1 && $(id);
+    if (!id || id[0] !== '#' || id.length < 2) return;      // e.g. the email link becomes mailto: at runtime
+    const el = document.getElementById(id.slice(1));
     if (!el) return;
     e.preventDefault();
     closeMenu();
@@ -199,54 +193,21 @@
 
       const typed = $('.t-typed', loader);
       const cmd = typed.dataset.text;
-      [...cmd].forEach((_, i) => at(() => { typed.textContent = cmd.slice(0, i + 1); }, 120 + i * 38));
-      const start = 120 + cmd.length * 38 + 180;
-      $$('.term-line', loader).forEach((line, i) => at(() => line.classList.add('on'), start + i * 150));
-      at(finish, start + 8 * 150 + 520);
+      [...cmd].forEach((_, i) => at(() => { typed.textContent = cmd.slice(0, i + 1); }, 100 + i * 24));
+      const start = 100 + cmd.length * 24 + 140;
+      $$('.term-line', loader).forEach((line, i) => at(() => line.classList.add('on'), start + i * 105));
+      at(finish, start + 8 * 105 + 320);
     });
   }
 
   /* =====================================================
      HERO — scroll-out parallax
      ===================================================== */
-  function initHeroFloats() {
-    const hero = $('#hero');
-    const floats = $$('.float[data-depth]', hero);
-    const rows = $$('.run-row', hero);
-    let timers = [];
-    const runOnce = () => {
-      timers.forEach(clearTimeout); timers = [];
-      rows.forEach(r => r.classList.remove('pass'));
-      rows.forEach((r, i) => timers.push(setTimeout(() => r.classList.add('pass'), 700 + i * 520)));
-    };
-    const start = () => {
-      if (reduce) { rows.forEach(r => r.classList.add('pass')); return; }
-      setTimeout(runOnce, 900);
-      setInterval(() => { if (!document.hidden) runOnce(); }, 11000);
-    };
-
-    if (reduce || !canHover) return { start };
-    const cur = { x: 0, y: 0 }, tgt = { x: 0, y: 0 };
-    let raf = 0;
-    const tick = () => {
-      cur.x += (tgt.x - cur.x) * 0.08; cur.y += (tgt.y - cur.y) * 0.08;
-      floats.forEach(f => { const d = +f.dataset.depth; f.style.transform = `translate3d(${(cur.x * d).toFixed(2)}px, ${(cur.y * d).toFixed(2)}px, 0)`; });
-      raf = Math.abs(tgt.x - cur.x) + Math.abs(tgt.y - cur.y) > 0.001 ? requestAnimationFrame(tick) : 0;
-    };
-    hero.addEventListener('pointermove', e => {
-      if (e.pointerType !== 'mouse') return;
-      tgt.x = e.clientX / innerWidth - 0.5; tgt.y = e.clientY / innerHeight - 0.5;
-      if (!raf) raf = requestAnimationFrame(tick);
-    });
-    hero.addEventListener('pointerleave', () => { tgt.x = tgt.y = 0; if (!raf) raf = requestAnimationFrame(tick); });
-    return { start };
-  }
-
   function initHeroScroll() {
     if (!hasGsap || reduce) return;
     const st = { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true };
-    gsap.to('.hero-photo img', { yPercent: 12, scale: 1.08, ease: 'none', scrollTrigger: st });
-    gsap.to('.landing-in, .hero-float', { yPercent: -10, opacity: 0.15, ease: 'none', scrollTrigger: { ...st, start: 'top+=10% top' } });
+    gsap.to('.orb-float', { yPercent: 14, scale: .92, ease: 'none', scrollTrigger: st });
+    gsap.to('.hero-head, .hero-copy, .hero-side, .hero-ticker', { yPercent: -10, opacity: 0.15, ease: 'none', scrollTrigger: { ...st, start: 'top+=10% top' } });
   }
 
   /* =====================================================
@@ -368,7 +329,7 @@
   function initPointerFx() {
     if (!canHover || reduce) return;
 
-    $$('.spot, .glass-btn').forEach(el => {
+    $$('.spot, .btn').forEach(el => {
       el.addEventListener('pointermove', e => {
         const r = el.getBoundingClientRect();
         el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
@@ -436,9 +397,14 @@
       if (!bugs.size) spawn(true);
       else bugs.forEach(b => { b.pauseUntil = 0; b.v = Math.min(b.v * 1.15, 120); });
     });
-    // keep the pill off the footer text at the very bottom of the page
-    const footer = $('.footer');
-    if (footer) new IntersectionObserver(([en]) => pill.classList.toggle('is-away', en.isIntersecting)).observe(footer);
+    // keep the card off the hero content (copy, CTAs, stats) and off the footer text
+    const away = new Set();
+    const watchAway = (el, key, opts) => el && new IntersectionObserver(([en]) => {
+      if (en.isIntersecting) away.add(key); else away.delete(key);
+      pill.classList.toggle('is-away', away.size > 0);
+    }, opts).observe(el);
+    watchAway($('.hero-copy'), 'hero', { rootMargin: '0px 0px -12% 0px' });
+    watchAway($('.footer'), 'footer');
 
     window.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') { mouse.x = e.clientX; mouse.y = e.clientY; } }, { passive: true });
     document.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
@@ -521,6 +487,7 @@
       return bd <= HIT ? best : null;
     };
     document.addEventListener('pointerdown', e => {
+      if (e.target.closest('a, button, input, textarea, select, [role="button"]') && !e.target.closest('.bug')) return;
       const b = nearest(e.clientX, e.clientY);
       if (b) { e.preventDefault(); catchBug(b); }
     }, true);
@@ -574,7 +541,287 @@
     };
   }
 
+  /* =====================================================
+     HERO VIDEO — the character looks at the cursor (left, right and up)
+       • every frame of the clip has a gaze label (x: -1 left … +1 right, y: 0 level … 1 up),
+         anchored on the reference stills (0s/1s front · 2s left · 3s right · 4s up-right ·
+         5s up · 6s/7s front) and interpolated between them
+       • the cursor position relative to the orb gives a target gaze; it is eased every frame
+         (exponential lerp) and the frame whose label is closest is drawn
+       • frames with nearly the same pose are linked in a graph; the head walks the shortest
+         route to the target frame at head-turn speed (SPEED), so it never teleports between
+         poses and can always find its way back (e.g. up-right → front goes through "up");
+         mid-turn frames whose eyes are off-camera never win at rest
+       • frame bank: WebCodecs decode → square WebP blobs → LRU of ImageBitmaps on a canvas;
+         video.currentTime seeking until the bank is live (and as the fallback)
+       • touch screens play the clip as a loop; reduced motion holds the front pose
+     ===================================================== */
+  function initCursorVideo() {
+    const hero = $('#hero');
+    const wrap = $('.hero-photo', hero);
+    const video = $('.hero-video', hero);
+    const canvas = $('.hero-canvas', hero);
+    if (!video || !canvas) return { start() {} };
+    const ctx = canvas.getContext('2d');
+
+    const T_FRONT = 0.5;                                   // start (and rest) on a camera-facing frame
+    const FPS = 24, DURATION = 8;
+    const LERP_TAU = 9, LRU_MAX = 24, LEAD = 24, WATCHDOG = 60000;
+    const TIME_W = 0.004;                                  // cost per second of clip distance (hysteresis)
+    const SPEED = 4.5;                                     // head-turn speed in pose units per second (full left→right ≈ 0.45s)
+    const LINK = 0.13;                                     // frames this close in pose are neighbours in the route graph
+    const MP4BOX_URL = 'https://cdn.jsdelivr.net/npm/mp4box@0.5.2/dist/mp4box.all.min.js';
+    const pointerFine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    /* gaze keys: [time, x, y, penalty]  (penalty -1 = never pick) */
+    const KEYS = [
+      [0.00, 0, 0], [1.10, 0, 0],                                          // front
+      [1.20, -.2, 0], [1.30, -.35, .02], [1.40, -.5, .04], [1.50, -.7, .05], [1.60, -.85, .05], [1.70, -.95, .05],
+      [1.80, -1, .05], [2.10, -1, .05],                                     // left (still 10)
+      [2.15, -.95, .04, -1], [2.55, -.1, 0, -1],                            // turning back: duplicate of 1.2–1.8
+      [2.60, 0, 0, .1], [2.70, .1, 0, .06], [2.80, .25, 0, .02], [2.90, .45, 0],
+      [3.00, .65, .02], [3.10, .8, .03], [3.20, .9, .05], [3.30, 1, .08], [3.50, 1, .08],   // right (still 11)
+      [3.60, .95, .15], [3.70, .9, .25], [3.80, .85, .35], [3.90, .85, .45],
+      [4.00, .8, .55], [4.30, .8, .55],                                     // up-right (still 12)
+      [4.40, .75, .6], [4.50, .65, .65], [4.60, .55, .7], [4.70, .5, .7], [4.80, .4, .75], [4.90, .25, .8],
+      [5.00, .1, .85], [5.10, .03, .9], [5.20, 0, .95], [5.40, 0, .95],     // up (still 13)
+      [5.50, 0, .85], [5.60, 0, .75], [5.70, 0, .6], [5.80, 0, .45], [5.90, 0, .3],
+      [6.00, 0, .15], [6.20, 0, .08], [6.30, 0, 0], [8.00, 0, 0]            // front (stills 14, 15)
+    ];
+    const labelAt = t => {
+      let i = 0; while (i < KEYS.length - 2 && KEYS[i + 1][0] <= t) i++;
+      const a = KEYS[i], b = KEYS[i + 1], k = Math.min(1, Math.max(0, (t - a[0]) / (b[0] - a[0] || 1)));
+      const pa = a[3] || 0, pb = b[3] || 0;
+      return { t, x: a[1] + (b[1] - a[1]) * k, y: a[2] + (b[2] - a[2]) * k, pen: (pa < 0 || pb < 0) ? -1 : pa + (pb - pa) * k };
+    };
+    // candidate frames: the clip's 24fps grid until the decoded bank replaces it
+    let cands = [];
+    for (let f = 0; f < DURATION * FPS; f++) cands.push(labelAt(f / FPS));
+    // the frame that best matches a gaze (where the head should come to rest)
+    const pick = (gx, gy, now) => {
+      let best = 0, bestCost = Infinity;
+      for (let i = 0; i < cands.length; i++) {
+        const c = cands[i];
+        if (c.pen < 0) continue;
+        const cost = (c.x - gx) ** 2 + (c.y - gy) ** 2 + c.pen + TIME_W * Math.abs(c.t - now.t);
+        if (cost < bestCost) { bestCost = cost; best = i; }
+      }
+      return best;
+    };
+    // route graph: neighbours are frames with nearly the same pose, so any route is a smooth head turn
+    let graph = [];
+    const poseDist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+    const buildGraph = () => {
+      graph = cands.map((a, i) => {
+        const n = [];
+        if (a.pen < 0) return n;
+        for (let j = 0; j < cands.length; j++) {
+          const b = cands[j];
+          if (j === i || b.pen < 0) continue;
+          const d = poseDist(a, b);
+          if (d <= LINK) n.push([j, d + 0.002 + 0.0005 * Math.abs(a.t - b.t)]);
+        }
+        return n;
+      });
+    };
+    // shortest route between two frames (Dijkstra; ~200 nodes, cheap enough per paint)
+    const route = (from, to) => {
+      const n = cands.length, dist = new Float64Array(n).fill(Infinity), prev = new Int32Array(n).fill(-1), done = new Uint8Array(n);
+      dist[from] = 0;
+      for (;;) {
+        let u = -1, best = Infinity;
+        for (let i = 0; i < n; i++) if (!done[i] && dist[i] < best) { best = dist[i]; u = i; }
+        if (u < 0 || u === to) break;
+        done[u] = 1;
+        for (const [v, w] of graph[u]) if (dist[u] + w < dist[v]) { dist[v] = dist[u] + w; prev[v] = u; }
+      }
+      if (!isFinite(dist[to])) return null;
+      const path = []; for (let v = to; v !== from; v = prev[v]) path.push(v);
+      return path.reverse();                               // excludes `from`
+    };
+    buildGraph();
+
+    /* touch screens & reduced motion: no cursor, so loop the clip (or hold the front pose) */
+    if (!pointerFine || reduce) {
+      video.loop = !reduce;
+      const go = () => { if (reduce) video.currentTime = T_FRONT; else video.play().catch(() => {}); };
+      if (video.readyState >= 1) go(); else video.addEventListener('loadedmetadata', go, { once: true });
+      if (!reduce) {
+        ['touchstart', 'scroll', 'pointerdown'].forEach(ev => window.addEventListener(ev, () => video.paused && video.play().catch(() => {}), { once: true, passive: true }));
+        new IntersectionObserver(([en]) => { if (en.isIntersecting) { if (video.paused) video.play().catch(() => {}); } else video.pause(); }).observe(hero);
+      }
+      return { start() {} };
+    }
+
+    const gaze = { x: 0, y: 0, tx: 0, ty: 0 };
+    let shown = pick(0, 0, labelAt(T_FRONT));             // index into cands
+    let bank = [], ready = false, painted = false, lastDrawn = -1, building = false;
+    const lru = new Map();
+    let raf = 0, last = 0, visible = true, budget = 0;
+
+    /* cursor → target gaze, measured from the orb's centre so "on the face" means "look at me" */
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    const ease = v => Math.sign(v) * Math.min(1, Math.abs(v)) ** 0.85;
+    window.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      const r = wrap.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2, dead = r.width * 0.12;
+      const dx = e.clientX - cx, dy = cy - e.clientY;      // dy > 0 = above the orb
+      const sx = Math.max(cx, innerWidth - cx) * 0.8, sy = Math.max(cy, 160) * 0.85;
+      const px = Math.abs(dx) <= dead ? 0 : (dx - Math.sign(dx) * dead) / (sx - dead);
+      const py = dy <= dead ? 0 : (dy - dead) / (sy - dead);  // no "look down" frames: below → level
+      gaze.tx = ease(clamp(px, -1, 1)); gaze.ty = ease(clamp(py, 0, 1));
+    }, { passive: true });
+    // mouse left the window → ease back to facing the camera
+    document.addEventListener('mouseout', e => { if (!e.relatedTarget) gaze.tx = gaze.ty = 0; });
+
+    /* ---------- frame bank paint ---------- */
+    const warmLRU = i => {
+      for (let k = i; k <= i + 1; k++) {
+        if (k < 0 || k >= bank.length || lru.has(k)) continue;
+        lru.set(k, null);
+        createImageBitmap(bank[k].blob).then(b => { if (lru.has(k)) lru.set(k, b); else b.close(); }).catch(() => lru.delete(k));
+      }
+      while (lru.size > LRU_MAX) { const [k, b] = lru.entries().next().value; if (b) b.close(); lru.delete(k); }
+    };
+    const draw = i => {
+      const b = lru.get(i);
+      if (!b) return false;
+      lru.delete(i); lru.set(i, b);                       // refresh recency
+      ctx.drawImage(b, 0, 0, canvas.width, canvas.height);
+      lastDrawn = i;
+      if (!painted) { painted = true; canvas.classList.add('is-live'); }
+      return true;
+    };
+
+    /* ---------- rAF loop: runs every frame while the hero is on screen ---------- */
+    function tick(t) {
+      const dt = last ? Math.min(0.1, (t - last) / 1000) : 1 / 60;
+      last = t;
+      const k = 1 - Math.exp(-dt * LERP_TAU);
+      gaze.x += (gaze.tx - gaze.x) * k; gaze.y += (gaze.ty - gaze.y) * k;
+      if (Math.abs(gaze.tx - gaze.x) < 0.002) gaze.x = gaze.tx;
+      if (Math.abs(gaze.ty - gaze.y) < 0.002) gaze.y = gaze.ty;
+      wrap.style.setProperty('--ry', (gaze.x * 4).toFixed(3) + 'deg');
+      wrap.style.setProperty('--rx', (gaze.y * 3).toFixed(3) + 'deg');
+      wrap.style.setProperty('--tx', (gaze.x * 6).toFixed(2) + 'px');
+      wrap.style.setProperty('--ty', (-gaze.y * 5).toFixed(2) + 'px');
+
+      // walk toward the best-matching frame along the route, at head-turn speed
+      const goal = pick(gaze.x, gaze.y, cands[shown]);
+      let ahead = [];
+      if (goal === shown) budget = 0;
+      else {
+        const path = route(shown, goal);
+        if (!path) { shown = goal; budget = 0; }
+        else {
+          budget = Math.min(budget + SPEED * dt, 1);
+          let i = 0;
+          while (i < path.length && budget >= poseDist(cands[shown], cands[path[i]])) { budget -= poseDist(cands[shown], cands[path[i]]); shown = path[i++]; }
+          ahead = path.slice(i, i + 3);
+        }
+      }
+      if (ready) {
+        warmLRU(shown); ahead.forEach(warmLRU);
+        if (shown !== lastDrawn) draw(shown);
+      } else if (video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - cands[shown].t) > 0.02) {
+        video.currentTime = cands[shown].t;               // fallback until the bank is live
+      }
+      raf = visible ? requestAnimationFrame(tick) : 0;
+    }
+    new IntersectionObserver(([en]) => {
+      visible = en.isIntersecting;
+      if (visible && !raf) { last = 0; raf = requestAnimationFrame(tick); }
+    }).observe(hero);
+    if (video.readyState >= 1) video.currentTime = T_FRONT;
+    else video.addEventListener('loadedmetadata', () => { video.currentTime = T_FRONT; }, { once: true });
+
+    /* ---------- frame bank build (WebCodecs) ---------- */
+    const loadScript = src => new Promise((res, rej) => {
+      if (window.MP4Box) return res();
+      const s = document.createElement('script'); s.src = src; s.async = true; s.onload = res; s.onerror = rej; document.head.appendChild(s);
+    });
+    async function decodeAll(buf, accel) {
+      const file = MP4Box.createFile();
+      const info = await new Promise((res, rej) => { file.onReady = res; file.onError = rej; buf.fileStart = 0; file.appendBuffer(buf); file.flush(); });
+      const track = info.videoTracks[0];
+      if (!track) throw new Error('no video track');
+      const samples = [];
+      file.onSamples = (_i, _u, s) => samples.push(...s);
+      file.setExtractionOptions(track.id, null, { nbSamples: Infinity });
+      file.start();
+      let description;
+      for (const e of file.getTrackById(track.id).mdia.minf.stbl.stsd.entries) {
+        const box = e.avcC || e.hvcC || e.vpcC || e.av1C;
+        if (box) { const st = new DataStream(undefined, 0, DataStream.BIG_ENDIAN); box.write(st); description = new Uint8Array(st.buffer, 8); break; }
+      }
+      const config = { codec: track.codec, codedWidth: track.video.width, codedHeight: track.video.height, description, hardwareAcceleration: accel };
+      if (!(await VideoDecoder.isConfigSupported(config)).supported) throw new Error('codec not supported');
+
+      const work = document.createElement('canvas'); work.width = canvas.width; work.height = canvas.height;
+      const wctx = work.getContext('2d');
+      const out = []; let encoding = 0, failed = null;
+      const dec = new VideoDecoder({
+        output: f => {
+          const ts = f.timestamp, w = f.displayWidth, h = f.displayHeight, side = Math.min(w, h);
+          // the orb shows the centre square of the frame, so only keep that
+          wctx.drawImage(f, (w - side) / 2, (h - side) / 2, side, side, 0, 0, work.width, work.height); encoding++;
+          work.toBlob(b => { encoding--; if (b) out.push({ ts, blob: b }); }, 'image/webp', 0.85);
+          f.close();
+        },
+        error: e => { failed = e; }
+      });
+      dec.configure(config);
+      for (const s of samples) {
+        if (failed) throw failed;
+        while (encoding > LEAD || dec.decodeQueueSize > LEAD) await new Promise(r => setTimeout(r, 4));
+        dec.decode(new EncodedVideoChunk({ type: s.is_sync ? 'key' : 'delta', timestamp: Math.round(1e6 * s.cts / s.timescale), duration: Math.round(1e6 * s.duration / s.timescale), data: s.data }));
+      }
+      await dec.flush(); dec.close();
+      while (encoding > 0) await new Promise(r => setTimeout(r, 10));
+      if (failed || !out.length) throw failed || new Error('no frames');
+      return out.sort((a, b) => a.ts - b.ts);
+    }
+    async function buildBank() {
+      if (building || !('VideoDecoder' in window)) return;
+      building = true;
+      let reverted = false;
+      const dog = setTimeout(() => { reverted = true; ready = false; canvas.classList.remove('is-live'); }, WATCHDOG);
+      try {
+        await loadScript(MP4BOX_URL);
+        const buf = await (await fetch(video.currentSrc || video.getAttribute('src'))).arrayBuffer();
+        let frames;
+        try { frames = await decodeAll(buf.slice(0), 'prefer-hardware'); }
+        catch (e) { frames = await decodeAll(buf.slice(0), 'prefer-software'); }   // one software retry
+        if (reverted) return;
+        const now = cands[shown];
+        bank = frames;
+        cands = frames.map(f => labelAt(f.ts / 1e6));     // labels for the real decoded timestamps
+        buildGraph();
+        shown = pick(now.x, now.y, now);
+        lastDrawn = -1; ready = true;
+        warmLRU(shown);
+      } catch (e) {
+        ready = false;                                     // stay on video seeking
+      } finally { clearTimeout(dog); }
+    }
+    // start decoding right away (not after the loader) so tracking is smooth sooner
+    (window.requestIdleCallback || (fn => setTimeout(fn, 200)))(buildBank);
+
+    // test hook: lets QA read the current pose without a debugger
+    window.__heroGaze = () => ({ gx: +gaze.x.toFixed(3), gy: +gaze.y.toFixed(3), t: cands[shown].t, live: ready, frames: bank.length });
+    return { start() {} };
+  }
+
   /* ---------------- boot ---------------- */
+  $$('.js-mail').forEach(a => {
+    const addr = `${a.dataset.u}@${a.dataset.d}`;
+    a.href = `mailto:${addr}`;
+    const full = $('.mail-full', a);
+    if (full) full.textContent = addr;
+    a.setAttribute('aria-label', `Email ${addr}`);
+  });
+
   const yr = $('#year');
   if (yr) yr.textContent = new Date().getFullYear();
 
@@ -585,12 +832,12 @@
   initPointerFx();
 
   const bugHunt = initBugHunt();
-  const heroFloats = initHeroFloats();
+  const cursorVideo = initCursorVideo();
 
   runLoader().then(() => {
     setTimeout(() => $('#hero').classList.add('is-ready'), 120);
     bugHunt.start();
-    heroFloats.start();
+    cursorVideo.start();
     setTimeout(() => { if (hasGsap) ScrollTrigger.refresh(); scrollToHash(); }, 400);
   });
   window.addEventListener('load', () => { if (hasGsap) ScrollTrigger.refresh(); });
